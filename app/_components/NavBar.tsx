@@ -18,7 +18,7 @@ function NavBar() {
   }
 
   return (
-  <nav className="flex justify-between">
+  <nav className="flex justify-between container mx-auto p-2 lg:max-w-[1120px] max-w-lg">
     <h1 className="font-bold uppercase">
         <Link href="/">Expenses</Link>
     </h1>

@@ -20,7 +20,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <Provider>
-        <body className={`${inter.className} container mx-auto p-2 lg:max-w-[1120px] max-w-lg`}>
+        <body className={inter.className}>
           <NavBar/>
           {children}
           <BottomNav/>
