@@ -43,7 +43,6 @@ const CreateTag = () => {
         })
     }
   return (
-    <div className="w-full">
     <Dialog>
         <DialogTrigger asChild>
             <PlusCircle size={20}/>
@@ -82,7 +81,6 @@ const CreateTag = () => {
             </Form> 
         </DialogContent>
     </Dialog>
-    </div>
   )
 }
 export default CreateTag

@@ -40,7 +40,7 @@ const BottomNav = () => {
 			</Link>
 		</div>
 		:
-		<>{JSON.stringify(user)}</>  
+		<></>  
     )
 }
 

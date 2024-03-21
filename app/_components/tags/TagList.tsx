@@ -1,8 +1,8 @@
 'use client'
 import { TagInterface } from '@/types/types'
-import { Trash2 } from 'lucide-react'
 import React from 'react'
 import UpdateTag from './UpdateTag'
+import DeleteTag from './DeleteTag'
 
 const TagList = ({tag}:{tag:TagInterface}) => {
   return (      
@@ -13,7 +13,7 @@ const TagList = ({tag}:{tag:TagInterface}) => {
         </div>
         <div className='flex flex-row items-center space-x-5'>
             <UpdateTag tag={tag}/>
-            <Trash2/>
+            <DeleteTag _id={tag._id}/>
         </div>
     </div>
   )

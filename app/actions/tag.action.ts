@@ -47,3 +47,12 @@ export async function UpdateMyTag(data:UpdateInputs){
     }
 
 }
+export async function deleteTag({id}:{id:string}){
+    try {
+       await TagModel.findOneAndDelete({_id:id})
+        revalidatePath("/tags")
+    } catch (error) {
+        console.log(error);
+    }
+
+}
