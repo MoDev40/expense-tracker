@@ -5,3 +5,9 @@ export interface TagInterface {
     user:string;
     is_public: boolean;
 }
+
+export interface ExpenseBody {
+    amount: number;
+    tag_id: string;
+    user_id: string;
+}

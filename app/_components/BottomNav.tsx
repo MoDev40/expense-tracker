@@ -1,10 +1,11 @@
 'use client'
-import { BarChart3Icon, Plus, ReceiptPoundSterling, Tags } from 'lucide-react'
+import { BarChart3Icon, ReceiptPoundSterling, Tags } from 'lucide-react'
 import { usePathname } from 'next/navigation'
 import React from 'react'
 import Link from 'next/link'
 import { Button } from '@/components/ui/button'
 import { useUser } from '../context/UserContext'
+import CreateExpense from './expenses/CreateExpense'
 
 const BottomNav = () => {
 	const {user} = useUser()
@@ -24,7 +25,7 @@ const BottomNav = () => {
 			</Link>
 			{
 				pathName == "/expenses" ?
-				<Plus/>
+				<CreateExpense/>
 				:
 				<AddExpenseNav/>
 			}

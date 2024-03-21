@@ -1,6 +1,6 @@
 import { Model, Schema, model, models } from "mongoose";
 
-interface TagDocument extends Document {
+export interface TagDocument extends Document {
     tag: string;
     name: string;
     user:Schema.Types.ObjectId;
