@@ -2,6 +2,7 @@
 import { TagInterface } from '@/types/types'
 import { Trash2 } from 'lucide-react'
 import React from 'react'
+import UpdateTag from './UpdateTag'
 
 const TagList = ({tag}:{tag:TagInterface}) => {
   return (      
@@ -11,6 +12,7 @@ const TagList = ({tag}:{tag:TagInterface}) => {
             <span>{tag.name}</span>
         </div>
         <div className='flex flex-row items-center space-x-5'>
+            <UpdateTag tag={tag}/>
             <Trash2/>
         </div>
     </div>

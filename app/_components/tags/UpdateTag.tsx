@@ -10,15 +10,15 @@ import {
 } from "@/components/ui/dialog"
 
 import { Form,FormField, FormItem } from "@/components/ui/form"
-
 import React, { useState } from 'react'
 import { SubmitHandler, useForm } from 'react-hook-form'
 import {z} from "zod"
-import { Loader, PlusCircle } from "lucide-react"
+import { FileEdit, Loader } from 'lucide-react'
+import { TagInterface } from '@/types/types'
 import { Input } from "@/components/ui/input"
 import { cn } from "@/lib/utils"
 import { useUser } from "@/app/context/UserContext"
-import { createTag } from "@/app/actions/tag.action"
+import { UpdateMyTag } from "@/app/actions/tag.action"
 
 const tagSchema = z.object({
     name:z.string().min(2),
@@ -27,26 +27,26 @@ const tagSchema = z.object({
 
 type TagInputs = z.infer<typeof tagSchema> 
 
-const CreateTag = () => {
+const UpdateTag = ({tag}:{tag:TagInterface}) => {
+
     const {user} = useUser()
-    const [isAdding,setIsAdding] = useState<boolean>(false)
+    const [isUpdating,setIsUpdating] = useState<boolean>(false)
 
     const form = useForm<TagInputs>()
     const onSubmit : SubmitHandler<TagInputs> = async(data) => {
-        setIsAdding(true)
-        const tag = {name: data.name, tag: data.tag,id:user?.id!}
-        await createTag(tag).then(()=>{
+        setIsUpdating(true)
+        const updatedTag = {name: data.name, tag: data.tag,user_id:user?.id!,id:tag._id!}
+        await UpdateMyTag(updatedTag).then(()=>{
         }).catch(()=>{
 
         }).finally(()=>{
-            setIsAdding(false)
+            setIsUpdating(false)
         })
     }
   return (
-    <div className="w-full">
     <Dialog>
         <DialogTrigger asChild>
-            <PlusCircle size={20}/>
+            <FileEdit size={20}/>
         </DialogTrigger>
         <DialogContent>
             <DialogHeader>
@@ -56,16 +56,18 @@ const CreateTag = () => {
             <Form {...form}>
                 <form onSubmit={form.handleSubmit(onSubmit)} className="flex items-center flex-col space-y-4">
                     <FormField
+                    defaultValue={tag.name}
                     control={form.control}
                     name="name"
                     render={({field})=>(
                         <FormItem  className={cn("w-full")} >
-                            <Input required type="text" placeholder="rent" {...field}/>
+                            <Input required type="text" placeholder="name" {...field}/>
                         </FormItem>
                     )}
                     />
                     <FormField
                     control={form.control}
+                    defaultValue={tag.tag}
                     name="tag"
                     render={({field})=>(
                         <FormItem  className={cn("w-full")} >
@@ -75,14 +77,14 @@ const CreateTag = () => {
                     />
                     <Button className={cn("w-full")} type="submit">
                         {
-                            isAdding ? <Loader className="animate-spin" size={20}/> : "save"
+                            isUpdating ? <Loader className="animate-spin" size={20}/> : "Update"
                         }
                     </Button>                
                 </form>
             </Form> 
         </DialogContent>
     </Dialog>
-    </div>
-  )
+    )
 }
-export default CreateTag
+
+export default UpdateTag
