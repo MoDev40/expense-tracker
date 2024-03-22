@@ -1,8 +1,8 @@
 "use client"
 import { Label } from '@/components/ui/label'
 import { InterfaceExpense } from '@/types/types'
-import { Trash2 } from 'lucide-react'
 import React from 'react'
+import DeleteExpense from './DeleteExpense'
 
 const Expense = ({expense}:{expense:InterfaceExpense}) => {
   return (
@@ -14,7 +14,7 @@ const Expense = ({expense}:{expense:InterfaceExpense}) => {
             <Label>${expense.amount}</Label>
         </div>
         <div className='flex flex-row items-center space-x-4'>
-            <Trash2/>
+            <DeleteExpense id={expense._id}/>
         </div>
     </div>
   )

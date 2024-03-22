@@ -16,7 +16,16 @@ export async function createExpense(data:ExpenseBody) : Promise<void>{
         const createdExp = new ExpenseModel(newExpense)
         createdExp.save();
     } catch (error) {
-        
+        console.log(error);
     }
     
+}
+
+export async function deleteMyExpense({id}:{id:string}){
+    try {
+        connectDB()
+        await ExpenseModel.findByIdAndDelete({_id:id})
+    } catch (error) {
+        console.log(error);
+    }
 }
