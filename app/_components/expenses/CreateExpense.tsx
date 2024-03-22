@@ -39,7 +39,7 @@ const CreateExpense = () => {
     const form = useForm<Inputs>();
     const onSubmit : SubmitHandler<Inputs> = async(data)=>{
         setIsCreating(true)
-        const expBody : ExpenseBody = {user_id:user?.id!,amount:Number(data.price),tag_id:data.tag}
+        const expBody : ExpenseBody = {user:user?.id!,amount:Number(data.price),tag_id:data.tag}
         await createExpense(expBody).then(()=>{
 
         }).catch(()=>{

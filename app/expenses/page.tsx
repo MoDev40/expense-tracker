@@ -1,8 +1,11 @@
 import React from 'react'
+import ExpenseLists from '../_components/expenses/ExpenseLists'
 
 function page() {
   return (
-    <div>page</div>
+    <div>
+      <ExpenseLists/>
+    </div>
   )
 }
 

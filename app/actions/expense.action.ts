@@ -10,8 +10,8 @@ export async function createExpense(data:ExpenseBody) : Promise<void>{
         connectDB()
         const newExpense = {
             amount: data.amount,
-            user:data.user_id,
-            tag_id:data.tag_id   
+            user:data.user,
+            tag:data.tag_id   
         }
         const createdExp = new ExpenseModel(newExpense)
         createdExp.save();

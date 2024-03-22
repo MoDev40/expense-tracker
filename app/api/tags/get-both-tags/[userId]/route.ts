@@ -8,7 +8,6 @@ type Params = {
 
 export async function GET(req: NextRequest, { params }: { params: Params }) {
   const { userId } = params;
-
   try {
     const tags: TagInterface[] = await TagModel.find({
       $or: [
