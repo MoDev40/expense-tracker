@@ -47,13 +47,9 @@ const BottomNav = () => {
 
 const AddExpenseNav = () => {
 	return (
-		<Button variant="outline"
-			className="flex justify-center items-center flex-col group cursor-pointer"
-		>
-			<Link href="/expenses" className="shadow-sm transition-all">
-				<ReceiptPoundSterling size={10} className="h-8 w-8 hover:scale-125 transition-all" />
-			</Link>
-		</Button>
+		<Link  href="/expenses" className="shadow-sm transition-all">
+			<ReceiptPoundSterling size={10} className="h-8 w-8 hover:scale-125 transition-all" />
+		</Link>
 	);
 };
 

@@ -1,5 +1,3 @@
-import { Schema } from "mongoose";
-
 export interface TagInterface {
     _id: string;
     name: string;
@@ -14,6 +12,12 @@ export interface ExpenseBody {
     tag_id: string;
 }
 
+export interface SummaryResponseInterface {
+    highestExpense:InterfaceExpense;
+    lowestExpense:InterfaceExpense;
+    sumMonthExpenses:number;
+    expenses:InterfaceExpense[];
+}
 export interface InterfaceExpense  {
     _id: string;
     amount: number;
