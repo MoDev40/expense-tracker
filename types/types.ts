@@ -1,3 +1,5 @@
+import { Schema } from "mongoose";
+
 export interface TagInterface {
     _id: string;
     name: string;

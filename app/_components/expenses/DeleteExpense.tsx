@@ -9,7 +9,7 @@ const DeleteExpense = ({id}:{id:string}) => {
     const router = useRouter()
     const handleDelete = async()=>{
       setIsDeleting(true)
-      await deleteMyExpense({id}).then(()=>{
+      await deleteMyExpense(id).then(()=>{
         router.refresh()
       }).finally(()=>{
         setIsDeleting(false)

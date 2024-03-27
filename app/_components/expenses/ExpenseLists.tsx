@@ -21,7 +21,7 @@ const ExpenseLists = () => {
         {
             data?.expenses&&
             data.expenses.map(expense =>(
-                <Expense expense={expense}/>
+                <Expense key={expense._id} expense={expense}/>
             ))
         }
     </div>
