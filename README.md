@@ -2,18 +2,21 @@
 
 Welcome to the customized version of Expenses Web App, based on the original source created by [Chensokheng](https://github.com/Chensokheng/). This version includes significant customizations and enhancements tailored to specific needs and preferences.
 
+![Expenses Web App Logo](/public/icon-192x192.png)
+
+
 ## Original Source
 
 The original Expenses Web App source code by [Chensokheng](https://github.com/Chensokheng/budget) serves as the inspiration for this customized version. While the original source only supported creating expenses without update and delete functionalities, this customized version addresses these limitations.
 
 ## Features
 
-- **Expense Tracking**: Easily record your expenses with  (tag or sticker) and amount
-- **CRUD** Operations: Perform Create, Read, Update, and Delete operations for expenses and tags.
-Expense Tagging: Categorize expenses by assigning tags, enabling better organization and analysis.
-- **Analytics:** Gain insights into your spending habits with daily bar chart analytics and also minimum and maximum expenses.
-- **Secure Login:** Your data is kept safe with secure user authentication, ensuring only authorized access to your expense records.
-- **Customizations:** This version includes additional features and customizations tailored to specific requirements.
+- 💰 **Expense Tracking**: Easily record your expenses with tags and amount.
+- 🔄 **CRUD Operations**: Perform Create, Read, Update, and Delete operations for expenses and tags.
+- 🏷️ **Expense Tagging**: Categorize expenses by assigning tags, enabling better organization and analysis.
+- 📊 **Analytics**: Gain insights into your spending habits with daily bar chart analytics showcasing minimum and maximum expenses.
+- 🔒 **Secure Login**: Your data is kept safe with secure user authentication, ensuring only authorized access to your expense records.
+- 🛠️ **Customizations**: This version includes additional features and customizations tailored to specific requirements.
 
 ## Getting Started
 
@@ -30,7 +33,7 @@ To use this customized version of Expenses Web App, follow the instructions prov
 This customized version of Expenses Web App utilizes the following technologies:
 
 - **Frontend**: Next.js 14, React.js
-- **Backend**: Next.js API Routes,Server actions, MongoDB
+- **Backend**: Next.js API Routes, Server actions, MongoDB
 - **Authentication**: Next Auth
 - **Database**: MongoDB
 - **Deployment**: Vercel (or your preferred hosting platform)
