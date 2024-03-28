@@ -1,5 +1,6 @@
 import connectDB from '@/app/config/connectDB';
 import ExpenseModel from '@/app/models/ExpenseModel';
+import UserModel from '@/app/models/UserModel';
 import { NextRequest, NextResponse } from 'next/server';
 
 type Params = {
@@ -12,10 +13,14 @@ export async function GET(req: NextRequest, { params }: { params: Params }) {
   const startDate = new Date(currentDate.getFullYear(), currentDate.getMonth(), 1)
   const endDate = new Date(currentDate.getFullYear(), currentDate.getMonth()+1, 0)
   try {
+    const user = await UserModel.findOne({email:_id})
+    if(!user){
+      return NextResponse.json({message:"unAuthorized User"},{status:200})
+    }
     connectDB()
     const expenses = await ExpenseModel.find({
       $and:[
-        {user: _id},
+        {user: user?._id},
         {createdAt:{
           $gte:startDate,
           $lte:endDate

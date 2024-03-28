@@ -1,20 +1,15 @@
-"use client"
-import { useUser } from '@/app/context/UserContext'
-import { Label } from '@/components/ui/label'
 import { SummaryResponseInterface } from '@/types/types'
-import { Loader } from 'lucide-react'
-import React from 'react'
-import useSWR, { Fetcher } from 'swr'
 import MinMaxExpense from './MinMaxExpense'
 import BarChar from './BarChar'
+import { Label } from '@/components/ui/label'
+import { getServerSession } from 'next-auth'
 
-const fetcher : Fetcher<any,string> = (url) : Promise<SummaryResponseInterface> => fetch(url,{cache:"no-cache"}).then((res)=>res.json())
 
-const Summary = () => {
-    const {user} = useUser()
-    const {data,isLoading} = useSWR<SummaryResponseInterface>(`/api/expenses/user-expenses/summary/${user?.id}`,fetcher)
+const Summary = async() => {
+  const session = await getServerSession()
+  const res = await fetch(`http://localhost:3000/api/expenses/user-expenses/summary/${session?.user.email}`)
+  const data : SummaryResponseInterface= await res.json()
   return (
-    isLoading ? <Loader className='animate-spin' size={20}/> :
     <div className='flex flex-col space-y-5'>
         <div className='w-full space-y-3'>
             <Label>Total amount spent this month</Label>
