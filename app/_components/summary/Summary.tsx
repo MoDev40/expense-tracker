@@ -3,13 +3,11 @@ import MinMaxExpense from './MinMaxExpense'
 import BarChar from './BarChar'
 import { Label } from '@/components/ui/label'
 import { getServerSession } from 'next-auth'
-import { api } from '@/app/config/config'
 
-export const dynamic = 'force-dynamic'
 
 const Summary = async() => {
   const session = await getServerSession()
-  const res = await fetch(`${api}/expenses/user-expenses/summary/${session?.user.email}`)
+  const res = await fetch(`https://daily-expenses-nine.vercel.app/api/expenses/user-expenses/summary/${session?.user.email}`)
   const data : SummaryResponseInterface= await res.json()
   return (
     <div className='flex flex-col space-y-5'>

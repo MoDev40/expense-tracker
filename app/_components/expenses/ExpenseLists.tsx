@@ -1,18 +1,16 @@
 import { InterfaceExpense } from '@/types/types'
 import Expense from './Expense'
 import { getServerSession } from 'next-auth'
-import { api } from '@/app/config/config'
 
 interface ResponseType {
     expenses:InterfaceExpense[]
 }
 
 
-export const dynamic = 'force-dynamic'
 
 const ExpenseLists = async() => {
     const session = await getServerSession()
-    const res = await fetch(`${api}/expenses/user-expenses/${session?.user.email}`)
+    const res = await fetch(`https://daily-expenses-nine.vercel.app/api/expenses/user-expenses/${session?.user.email}`)
     const data : ResponseType = await res.json()
   return (
     <div className='space-y-5 h-screen'>
