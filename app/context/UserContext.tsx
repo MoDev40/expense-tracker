@@ -1,7 +1,6 @@
 'use client'
 import { signOut, useSession } from "next-auth/react";
 import React, {createContext, useContext, useEffect, useState} from "react"
-
 interface User {
     id: string;
     name: string;

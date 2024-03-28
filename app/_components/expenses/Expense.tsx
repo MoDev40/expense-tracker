@@ -7,11 +7,11 @@ import UpdateExpense from './UpdateExpense'
 
 const Expense = ({expense}:{expense:InterfaceExpense}) => {
   return (
-    <div className='flex flex-row justify-between items-center p-4'>
+    <div className='flex flex-row justify-between items-center'>
         <div className='bg-gray-300 p-2 rounded-l-md'>
             <Label className='text-xl'>{expense.tag.tag}</Label>
         </div>
-        <div className='flex flex-col'>
+        <div>
             <Label>${expense.amount}</Label>
         </div>
         <div className='flex flex-row items-center space-x-4'>

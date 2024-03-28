@@ -5,7 +5,7 @@ import Link from 'next/link'
 import { useRouter } from 'next/navigation'
 import React, { useState } from 'react'
 import { useUser } from '../context/UserContext'
-
+import Cookies from "js-cookie"
 function NavBar() {
   const {user} = useUser()
   const [isLoad,setIsLoad] = useState<boolean>(false)
@@ -29,6 +29,7 @@ function NavBar() {
           className="h-5 w-5 hover:scale-110 transition-all"
           onClick={async () => {
             signOut()
+            Cookies.remove("token")
             router.push("/")
           }}
       />

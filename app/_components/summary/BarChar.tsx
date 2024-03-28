@@ -63,7 +63,7 @@ const BarChar = ({expenses}:{expenses:InterfaceExpense[]}) => {
       };
     
       return (
-        <div className='w-full h-64'>
+        <div className='w-full md:h-64'>
           <Bar data={data} />
         </div>
       );

@@ -2,6 +2,7 @@ import GoogleProvider from "next-auth/providers/google";
 import { NextAuthOptions } from "next-auth";
 import  connectDB  from "./connectDB";
 import UserModel from "../models/UserModel";
+import { cookies } from "next/headers";
 
 const GOOGLE_CLIENT_ID = process.env.AUTH_GOOGLE_CLIENT_ID!
 const GOOGLE_CLIENT_SECRET = process.env.AUTH_GOOGLE_CLIENT_SECRET!
@@ -17,7 +18,7 @@ export const authOptions : NextAuthOptions = {
         })
     ],
     callbacks:{
-        async signIn({profile}){
+        async signIn({profile,account}){
 
             if (!profile?.email) {
                 throw new Error('No profile')
@@ -33,7 +34,7 @@ export const authOptions : NextAuthOptions = {
               } catch (error) {
                 console.error('Error updating document:', error);
               }
-              
+            cookies().set("token",account?.access_token!)
             return true
         },async jwt({token}){
             if(!token.email){

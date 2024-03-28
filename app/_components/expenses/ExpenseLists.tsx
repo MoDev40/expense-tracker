@@ -17,7 +17,7 @@ const ExpenseLists = () => {
     const {data,isLoading} = useSWR<ResponseType>(`/api/expenses/user-expenses/${user?.id}`,fetcher)
   return (
     isLoading ? <Loader size={20} className='animate-spin text-center'/> :
-    <div>
+    <div className='space-y-5'>
         {
             data?.expenses&&
             data.expenses.map(expense =>(
