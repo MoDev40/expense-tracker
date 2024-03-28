@@ -1,9 +1,9 @@
-import Image from "next/image";
+import Home from "./_components/Home";
 
-export default function Home() {
+export default function page() {
   return (
-    <div>
-      <h1>Home</h1>
+    <div className='mx-auto space-y-4 mt-5 p-2 lg:max-w-[1120px] max-w-lg"'>
+      <Home/>
     </div>
   );
 }
