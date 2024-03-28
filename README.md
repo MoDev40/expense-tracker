@@ -1,36 +1,52 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# Expenses Web App (Customized Version)
+
+Welcome to the customized version of Expenses Web App, based on the original source created by [Chensokheng](https://github.com/Chensokheng/). This version includes significant customizations and enhancements tailored to specific needs and preferences.
+
+## Original Source
+
+The original Expenses Web App source code by [Chensokheng](https://github.com/Chensokheng/budget) serves as the inspiration for this customized version. While the original source only supported creating expenses without update and delete functionalities, this customized version addresses these limitations.
+
+## Features
+
+- **Expense Tracking**: Easily record your expenses with  (tag or sticker) and amount
+- **CRUD** Operations: Perform Create, Read, Update, and Delete operations for expenses and tags.
+Expense Tagging: Categorize expenses by assigning tags, enabling better organization and analysis.
+- **Analytics:** Gain insights into your spending habits with daily bar chart analytics and also minimum and maximum expenses.
+- **Secure Login:** Your data is kept safe with secure user authentication, ensuring only authorized access to your expense records.
+- **Customizations:** This version includes additional features and customizations tailored to specific requirements.
 
 ## Getting Started
 
-First, run the development server:
+To use this customized version of Expenses Web App, follow the instructions provided below:
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+1. **Clone the Repository**: Clone this repository to your local machine.
+2. **Install Dependencies**: Run `npm install` to install all required dependencies.
+3. **Set Up MongoDB**: Ensure you have MongoDB installed and running locally or on a remote server. Update the MongoDB connection details in the project configuration.
+4. **Run the Application**: Use `npm run dev` to start the development server.
+5. **Access the Application**: Open your web browser and navigate to the specified URL (usually `http://localhost:3000`) to access the Expenses Web App.
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## Technologies Used
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+This customized version of Expenses Web App utilizes the following technologies:
 
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
+- **Frontend**: Next.js 14, React.js
+- **Backend**: Next.js API Routes,Server actions, MongoDB
+- **Authentication**: Next Auth
+- **Database**: MongoDB
+- **Deployment**: Vercel (or your preferred hosting platform)
 
-## Learn More
+## Contributing
 
-To learn more about Next.js, take a look at the following resources:
+Contributions to this customized version are welcome! If you'd like to contribute, please fork the repository, make your changes, and submit a pull request.
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## Support
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
+If you encounter any issues or have any questions specific to this customized version, feel free to [contact me](mailto:modev.404@gmail.com). I'm here to assist you!
 
-## Deploy on Vercel
+## License
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+This customized version of Expenses Web App is licensed under the MIT License. See the [LICENSE](https://github.com/MoDev40/daily-expenses) file for details.
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+---
+
+**Note**: This README is specific to the customized version of Expenses Web App. While the original source utilized different technologies and lacked update and delete functionalities, this version addresses these limitations.
