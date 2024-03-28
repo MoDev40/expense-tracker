@@ -11,12 +11,10 @@ const tagSchema = new Schema({
     tag: {
         type: String,
         required: true,
-        unique: true
     },
     name: {
         type: String,
         required: true,
-        unique: true
     },
     is_public: {
         type: Boolean,
@@ -29,6 +27,6 @@ const tagSchema = new Schema({
     }
 });
 
-const TagModel = models.TagMD || model("TagMD",tagSchema)
+const TagModel = models.Tag || model("Tag",tagSchema)
 
 export default TagModel as Model<TagDocument>;

@@ -5,7 +5,6 @@ import { NextRequest } from 'next/server'
  
 export function middleware(request: NextRequest) {
     const token = cookies().get('token')?.value
-    console.log(token);
     if(!token){
         return NextResponse.redirect("http://localhost:3000/")    
     }

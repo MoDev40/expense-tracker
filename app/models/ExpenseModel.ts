@@ -18,11 +18,11 @@ const expenseSchema = new Schema({
     },
     tag: {
         type: Schema.Types.ObjectId,
-        ref: "TagMD",
+        ref: "Tag",
         required: true
     }
 },{timestamps: true})
 
-const ExpenseModel = models.ExpenseMD || model("ExpenseMD",expenseSchema)
+const ExpenseModel = models.Expense || model("Expense",expenseSchema)
 
 export default ExpenseModel as Model<ExpenseDocument>
