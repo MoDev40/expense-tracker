@@ -5,6 +5,7 @@ import { Label } from '@/components/ui/label'
 import { getServerSession } from 'next-auth'
 import { api } from '@/app/config/config'
 
+export const dynamic = 'force-dynamic'
 
 const Summary = async() => {
   const session = await getServerSession()

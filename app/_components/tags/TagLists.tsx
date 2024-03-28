@@ -5,6 +5,9 @@ import { api } from '@/app/config/config'
 interface ResponseType {
   tags:TagInterface[]
 }
+
+export const dynamic = 'force-dynamic'
+
 const TagLists = async() => {
   const session = await getServerSession()
   const res = await fetch(`${api}/tags/get-user-tags/${session?.user.email}`,{cache:"no-cache"})

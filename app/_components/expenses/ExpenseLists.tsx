@@ -8,6 +8,8 @@ interface ResponseType {
 }
 
 
+export const dynamic = 'force-dynamic'
+
 const ExpenseLists = async() => {
     const session = await getServerSession()
     const res = await fetch(`${api}/expenses/user-expenses/${session?.user.email}`)
