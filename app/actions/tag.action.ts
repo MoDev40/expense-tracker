@@ -1,5 +1,6 @@
 'use server';
 
+import { revalidatePath } from "next/cache";
 import connectDB from "../config/connectDB";
 import ExpenseModel from "../models/ExpenseModel";
 import TagModel from "../models/TagModel";
@@ -38,6 +39,7 @@ export async function createTag(tag:InputTag){
         }).catch((err)=>{
             reject("Error saving Tag: " + err.message)
         })
+        revalidatePath("/tags")
     })
 }
 
@@ -58,6 +60,8 @@ export async function UpdateMyTag(data:UpdateInputs){
             {name:data.name,tag:data.tag}
         )
         resolve("Updated successfully")
+        revalidatePath("/tags")
+
     })
 }
 export async function deleteTag(id:string){
@@ -69,5 +73,6 @@ export async function deleteTag(id:string){
         }
         await TagModel.findOneAndDelete({_id:id})
         resolve("Tag Deleted")
+        revalidatePath("/tags")
     })
 }
