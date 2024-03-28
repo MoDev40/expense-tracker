@@ -42,10 +42,23 @@ export async function createTag(tag:InputTag){
 }
 
 export async function UpdateMyTag(data:UpdateInputs){
-    await TagModel.findByIdAndUpdate(
-        {_id:data.id,user:data.user_id},
-        {name:data.name,tag:data.tag}
-    )
+    return new Promise(async(resolve, reject) =>{
+        const isTagExists = await TagModel.find({
+            $or:[
+                {name:data.name},
+                {tag:data.tag}
+            ]
+        })
+        if(isTagExists.length>0){
+            reject("Tag already exists")
+            return
+        }
+        await TagModel.findByIdAndUpdate(
+            {_id:data.id,user:data.user_id},
+            {name:data.name,tag:data.tag}
+        )
+        resolve("Updated successfully")
+    })
 }
 export async function deleteTag(id:string){
     return new Promise(async(resolve, reject) => {

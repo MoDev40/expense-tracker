@@ -46,7 +46,7 @@ const UpdateExpense = ({expense}:{expense:InterfaceExpense}) => {
         await updateMyExpense({expense_id:expense._id,data:updatedData}).then(()=>{
           toast({
             title: "Updated Expense",
-            description: "Expense has been created successfully",
+            description: "Expense has been Updated successfully",
             duration: 3000,
           })
         form.reset()
@@ -73,7 +73,7 @@ const UpdateExpense = ({expense}:{expense:InterfaceExpense}) => {
           </DialogDescription>
         </DialogHeader>
         <Form {...form}>
-        { !isLoading ? <Loader className="animate-spin"/> :
+        { isLoading ? <Loader className="animate-spin"/> :
         <form onSubmit={form.handleSubmit(onSubmit)} className="flex items-center flex-col space-y-4">
             <FormField
             control={form.control}
