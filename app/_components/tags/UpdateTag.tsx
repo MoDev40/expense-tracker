@@ -39,14 +39,14 @@ const UpdateTag = ({tag}:{tag:TagInterface}) => {
         const updatedTag = {name: data.name, tag: data.tag,user_id:user?.id!,id:tag._id!}
         await UpdateMyTag(updatedTag).then(()=>{
             toast({
-                title: "Update Tag",
+                title: "Updated Tag",
                 description: "Tag has been Updated successfully",
                 duration: 3000,
             })
             form.reset()
         }).catch(()=>{
             toast({
-                title: "Tag Created",
+                title: "Updated Tag",
                 description: "Unexpected error occurred",
                 variant:"destructive"
             })

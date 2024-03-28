@@ -45,7 +45,7 @@ export async function UpdateMyTag(data:UpdateInputs){
     }
 
 }
-export async function deleteTag({id}:{id:string}){
+export async function deleteTag(id:string){
     try {
        await TagModel.findOneAndDelete({_id:id})
     } catch (error) {

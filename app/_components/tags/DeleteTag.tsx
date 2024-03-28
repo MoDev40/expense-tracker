@@ -8,15 +8,15 @@ const DeleteTag = ({_id}:{_id:string}) => {
   const [isDeleting,setIsDeleting] = useState<boolean>(false)
   async function handleDelete (){
         setIsDeleting(true)
-        await deleteTag({id:_id}).then(()=>{
+        await deleteTag(_id).then(()=>{
           toast({
-            title: "Delete Tag",
+            title: "Deleted Tag",
             description: "Tag has been deleted successfully",
             duration: 3000,
         })
         }).catch(()=>{
           toast({
-            title: "Tag Created",
+            title: "Deleted Tag",
             description: "Unexpected error occurred",
             variant:"destructive"
           })

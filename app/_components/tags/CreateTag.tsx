@@ -44,7 +44,7 @@ const CreateTag = () => {
             form.reset()
         }).catch(()=>{
             toast({
-                title: "Tag Created",
+                title: "Created Tag",
                 description: "Unexpected error occurred",
                 variant:"destructive"
             })
