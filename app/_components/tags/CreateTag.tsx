@@ -42,10 +42,10 @@ const CreateTag = () => {
                 duration: 3000,
             })
             form.reset()
-        }).catch(()=>{
+        }).catch((error:any)=>{
             toast({
                 title: "Created Tag",
-                description: "Unexpected error occurred",
+                description: error.message|| "Unexpected error occurred",
                 variant:"destructive"
             })
         }).finally(()=>{

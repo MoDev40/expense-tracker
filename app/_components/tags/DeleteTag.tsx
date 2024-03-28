@@ -14,10 +14,10 @@ const DeleteTag = ({_id}:{_id:string}) => {
             description: "Tag has been deleted successfully",
             duration: 3000,
         })
-        }).catch(()=>{
+        }).catch((error:any)=>{
           toast({
             title: "Deleted Tag",
-            description: "Unexpected error occurred",
+            description: error.message || "Unexpected error occurred",
             variant:"destructive"
           })
         })
