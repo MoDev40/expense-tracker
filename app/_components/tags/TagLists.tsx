@@ -18,7 +18,7 @@ const TagLists = () => {
     <div className='flex flex-col'>
         { data?.tags&&
           data.tags.map((tag)=>(
-              <TagList tag={tag} />
+              <TagList key={tag._id} tag={tag} />
           ))
         }
     </div>
