@@ -1,6 +1,7 @@
 import { InterfaceExpense } from '@/types/types'
 import Expense from './Expense'
 import { getServerSession } from 'next-auth'
+import { api } from '@/app/config/config'
 
 interface ResponseType {
     expenses:InterfaceExpense[]
@@ -9,7 +10,7 @@ interface ResponseType {
 
 const ExpenseLists = async() => {
     const session = await getServerSession()
-    const res = await fetch(`http://localhost:3000/api/expenses/user-expenses/${session?.user.email}`)
+    const res = await fetch(`${api}/expenses/user-expenses/${session?.user.email}`)
     const data : ResponseType = await res.json()
   return (
     <div className='space-y-5 h-screen'>
