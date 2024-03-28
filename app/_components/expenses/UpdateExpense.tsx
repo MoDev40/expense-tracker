@@ -13,6 +13,7 @@ import {
 import { Form, FormControl, FormField, FormItem } from "@/components/ui/form"
 import { Input } from "@/components/ui/input"
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
+import { toast } from "@/components/ui/use-toast"
 import { cn } from "@/lib/utils"
 import { InterfaceExpense, TagInterface } from "@/types/types"
 import { FileEdit, Loader } from "lucide-react"
@@ -38,15 +39,23 @@ const UpdateExpense = ({expense}:{expense:InterfaceExpense}) => {
     const [isUpdating,setIsUpdating] = useState<boolean>(false);
     const form = useForm<Inputs>();
     const {user} = useUser()
-    const router = useRouter();
     const {data,isLoading} = useSWR<ResponseType>(`/api/tags/get-both-tags/${user?.id}`,fetcher)
     const onSubmit : SubmitHandler<Inputs> = async(data)=>{
         setIsUpdating(true)
         const updatedData = {amount:Number(data.price),tag_id:data.tag,user:expense.user};
         await updateMyExpense({expense_id:expense._id,data:updatedData}).then(()=>{
-
+          toast({
+            title: "Updated Expense",
+            description: "Expense has been created successfully",
+            duration: 3000,
+          })
+        form.reset()
         }).catch(()=>{
-          router.refresh()
+          toast({
+            title: "Updated Expense",
+            description: "Unexpected error occurred",
+            variant:"destructive"
+          })
         }).finally(()=>{
           setIsUpdating(false)
         })
@@ -64,6 +73,7 @@ const UpdateExpense = ({expense}:{expense:InterfaceExpense}) => {
           </DialogDescription>
         </DialogHeader>
         <Form {...form}>
+        { !isLoading ? <Loader className="animate-spin"/> :
         <form onSubmit={form.handleSubmit(onSubmit)} className="flex items-center flex-col space-y-4">
             <FormField
             control={form.control}
@@ -106,7 +116,8 @@ const UpdateExpense = ({expense}:{expense:InterfaceExpense}) => {
               { isUpdating ? <Loader size={20} className="animate-spin"/> : "Update"}
             </Button>
         </form>
-        </Form>
+        }
+        </Form>  
       </DialogContent>
     </Dialog>
   )

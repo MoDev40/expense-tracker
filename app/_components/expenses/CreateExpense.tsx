@@ -20,9 +20,10 @@ import { SubmitHandler, useForm } from "react-hook-form"
 import {z} from "zod"
 import useSWR, {Fetcher} from "swr"
 import { useUser } from "@/app/context/UserContext"
+import { toast } from "@/components/ui/use-toast"
 
 const newExpenseSchema = z.object({
-    price:z.number().min(0),
+    price:z.string(),
     tag:z.string()
 })
 
@@ -41,9 +42,18 @@ const CreateExpense = () => {
         setIsCreating(true)
         const expBody : ExpenseBody = {user:user?.id!,amount:Number(data.price),tag_id:data.tag}
         await createExpense(expBody).then(()=>{
-
+            toast({
+                title: "Created Expense",
+                description: "Expense has been created successfully",
+                duration: 3000,
+            })
+            form.reset()
         }).catch(()=>{
-
+            toast({
+                title: "Created Expense",
+                description: "Unexpected error occurred",
+                variant:"destructive"
+            })
         }).finally(()=>{
             setIsCreating(false)
         })
@@ -67,6 +77,7 @@ const CreateExpense = () => {
                 <FormField 
                 control={form.control}
                 name="tag"
+                defaultValue=""
                 render={({field})=>(
                     <FormItem  className={cn("w-full")} >
                         <Select required onValueChange={field.onChange} defaultValue={field.value}>
@@ -91,9 +102,10 @@ const CreateExpense = () => {
                 <FormField
                 control={form.control}
                 name="price"
+                defaultValue=""
                 render={({field})=>(
                     <FormItem  className={cn("w-full")} >
-                        <Input required type="number" placeholder="0.00" {...field}/>
+                        <Input required type="text" placeholder="0.00" {...field}/>
                     </FormItem>
                 )}
                 />
