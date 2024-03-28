@@ -1,4 +1,5 @@
 import ExpenseModel from '@/app/models/ExpenseModel';
+import UserModel from '@/app/models/UserModel';
 import { NextRequest, NextResponse } from 'next/server';
 
 type Params = {
@@ -8,7 +9,12 @@ type Params = {
 export async function GET(req: NextRequest, { params }: { params: Params }) {
   const { _id } = params;
   try {
-    const expenses = await ExpenseModel.find({ user: _id })
+    const user = await UserModel.findOne({email:_id})
+    if(!user){
+      return NextResponse.json({message:"unAuthorized User"},{status:200})
+    }
+
+    const expenses = await ExpenseModel.find({ user: user._id })
       .populate('tag', 'name tag')
       .sort({ createdAt: -1 });
 

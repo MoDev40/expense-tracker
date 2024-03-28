@@ -6,7 +6,7 @@ import UnAuth from './UnAuth'
 const Home = () => {
   const {user} = useUser()
   return (
-    user ? <ExpenseLists/> :
+    !user&&
     <UnAuth/>
   )
 }
