@@ -19,6 +19,7 @@ import { Input } from "@/components/ui/input"
 import { cn } from "@/lib/utils"
 import { useUser } from "@/app/context/UserContext"
 import { createTag } from "@/app/actions/tag.action"
+import { toast, useToast } from "@/components/ui/use-toast"
 
 const tagSchema = z.object({
     name:z.string().min(2),
@@ -30,14 +31,23 @@ type TagInputs = z.infer<typeof tagSchema>
 const CreateTag = () => {
     const {user} = useUser()
     const [isAdding,setIsAdding] = useState<boolean>(false)
-
     const form = useForm<TagInputs>()
     const onSubmit : SubmitHandler<TagInputs> = async(data) => {
         setIsAdding(true)
         const tag = {name: data.name, tag: data.tag,id:user?.id!}
         await createTag(tag).then(()=>{
+            toast({
+                title: "Created Tag",
+                description: "Tag has been created successfully",
+                duration: 3000,
+            })
+            form.reset()
         }).catch(()=>{
-
+            toast({
+                title: "Tag Created",
+                description: "Unexpected error occurred",
+                variant:"destructive"
+            })
         }).finally(()=>{
             setIsAdding(false)
         })
@@ -56,6 +66,7 @@ const CreateTag = () => {
                 <form onSubmit={form.handleSubmit(onSubmit)} className="flex items-center flex-col space-y-4">
                     <FormField
                     control={form.control}
+                    defaultValue=""
                     name="name"
                     render={({field})=>(
                         <FormItem  className={cn("w-full")} >
@@ -66,6 +77,7 @@ const CreateTag = () => {
                     <FormField
                     control={form.control}
                     name="tag"
+                    defaultValue=""
                     render={({field})=>(
                         <FormItem  className={cn("w-full")} >
                             <Input required type="text" placeholder="sticker or tag 🏡" {...field}/>

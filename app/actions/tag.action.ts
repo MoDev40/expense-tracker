@@ -1,6 +1,5 @@
 'use server';
 
-import { revalidatePath } from "next/cache";
 import connectDB from "../config/connectDB";
 import TagModel from "../models/TagModel";
 
@@ -22,13 +21,13 @@ export async function createTag(tag:InputTag) : Promise<void>{
             name:tag.name,
             user:tag.id
         }
+
         const createdTag = new TagModel(newTag);
         createdTag.save().then(()=>{
 
         }).catch((err)=>{
             console.log(err);
         }).finally(()=>{
-            revalidatePath("/tags")
         })
     } catch (error) {
         console.log(error);
@@ -41,7 +40,6 @@ export async function UpdateMyTag(data:UpdateInputs){
             {_id:data.id,user:data.user_id},
             {name:data.name,tag:data.tag}
         )
-        revalidatePath("/tags")
     } catch (error) {
         console.log(error);
     }
@@ -50,7 +48,6 @@ export async function UpdateMyTag(data:UpdateInputs){
 export async function deleteTag({id}:{id:string}){
     try {
        await TagModel.findOneAndDelete({_id:id})
-        revalidatePath("/tags")
     } catch (error) {
         console.log(error);
     }

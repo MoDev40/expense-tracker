@@ -4,7 +4,7 @@ import "./globals.css";
 import NavBar from "./_components/NavBar";
 import BottomNav from "./_components/BottomNav";
 import Provider from "@/utils/Providers";
-
+import { Toaster } from "@/components/ui/toaster"
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
@@ -21,6 +21,7 @@ export default function RootLayout({
     <html lang="en">
       <Provider>
         <body className={inter.className}>
+          <Toaster/>
           <NavBar/>
           {children}
           <BottomNav/>

@@ -19,6 +19,7 @@ import { Input } from "@/components/ui/input"
 import { cn } from "@/lib/utils"
 import { useUser } from "@/app/context/UserContext"
 import { UpdateMyTag } from "@/app/actions/tag.action"
+import { toast } from "@/components/ui/use-toast"
 
 const tagSchema = z.object({
     name:z.string().min(2),
@@ -37,8 +38,18 @@ const UpdateTag = ({tag}:{tag:TagInterface}) => {
         setIsUpdating(true)
         const updatedTag = {name: data.name, tag: data.tag,user_id:user?.id!,id:tag._id!}
         await UpdateMyTag(updatedTag).then(()=>{
+            toast({
+                title: "Update Tag",
+                description: "Tag has been Updated successfully",
+                duration: 3000,
+            })
+            form.reset()
         }).catch(()=>{
-
+            toast({
+                title: "Tag Created",
+                description: "Unexpected error occurred",
+                variant:"destructive"
+            })
         }).finally(()=>{
             setIsUpdating(false)
         })
