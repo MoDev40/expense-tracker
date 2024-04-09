@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
 import TagModel from "@/app/models/TagModel";
 import { TagInterface } from "@/types/types";
+import connectDB from "@/app/config/connectDB";
 
 type Params = {
   userId: string;
@@ -9,6 +10,8 @@ type Params = {
 export async function GET(req: NextRequest, { params }: { params: Params }) {
   const { userId } = params;
   try {
+    connectDB()
+
     const tags: TagInterface[] = await TagModel.find({
       $or: [
         { is_public: true },

@@ -13,11 +13,12 @@ export async function GET(req: NextRequest, { params }: { params: Params }) {
   const startDate = new Date(currentDate.getFullYear(), currentDate.getMonth(), 1)
   const endDate = new Date(currentDate.getFullYear(), currentDate.getMonth()+1, 0)
   try {
+    connectDB()
+
     const user = await UserModel.findOne({email:_id})
     if(!user){
-      return NextResponse.json({message:"unAuthorized User"},{status:200})
+      return NextResponse.json({message:"user not found"},{status:404})
     }
-    connectDB()
     const expenses = await ExpenseModel.find({
       $and:[
         {user: user?._id},

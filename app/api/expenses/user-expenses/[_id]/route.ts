@@ -1,3 +1,4 @@
+import connectDB from '@/app/config/connectDB';
 import ExpenseModel from '@/app/models/ExpenseModel';
 import UserModel from '@/app/models/UserModel';
 import { NextRequest, NextResponse } from 'next/server';
@@ -9,9 +10,10 @@ type Params = {
 export async function GET(req: NextRequest, { params }: { params: Params }) {
   const { _id } = params;
   try {
+    connectDB()
     const user = await UserModel.findOne({email:_id})
     if(!user){
-      return NextResponse.json({message:"unAuthorized User"},{status:200})
+      return NextResponse.json({message:"user not found"},{status:404})
     }
     const currentDate = new Date();
     const startDate = new Date(currentDate.getFullYear(), currentDate.getMonth(), 1)

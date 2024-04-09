@@ -1,3 +1,4 @@
+import connectDB from "@/app/config/connectDB";
 import TagModel from "@/app/models/TagModel";
 import UserModel from "@/app/models/UserModel";
 import {NextRequest,NextResponse} from "next/server"
@@ -8,9 +9,11 @@ type Params = {
 export  async function GET(req:NextRequest,{params}:{params:Params}) {
   try {
     const {id} = params
+    connectDB()
+
     const user = await UserModel.findOne({email:id})
     if(!user){
-      return NextResponse.json({message:"unAuthorized User"},{status:200})
+      return NextResponse.json({message:"user not found"},{status:404})
     }
     const tags = await TagModel.find({user:user?._id})
     return NextResponse.json({tags},{status:200})
