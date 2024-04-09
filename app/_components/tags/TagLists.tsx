@@ -8,7 +8,7 @@ interface ResponseType {
 const tagsData : () => Promise<ResponseType> = async()=>{
   const session = await getServerSession()
   const res = await fetch(`http://localhost:3000/api/tags/get-user-tags/${session?.user.email}`,{cache:"no-cache"})
-  return  await res.json()
+  return  res.ok ? await res.json() : []
 }
 
 const TagLists = async() => {
@@ -18,7 +18,7 @@ const TagLists = async() => {
         { tags ? 
           tags.map((tag)=>(
               <TagList key={tag._id} tag={tag} />
-          )) : <h1>Try again</h1>
+          )) : <h1>No data</h1>
         }
     </div>
   )

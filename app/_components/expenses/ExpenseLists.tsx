@@ -10,7 +10,7 @@ interface ResponseType {
 const expenseData : () => Promise<ResponseType> = async()=>{
     const session = await getServerSession()
     const res = await fetch(`http://localhost:3000/api/expenses/user-expenses/${session?.user.email}`)
-    return  await res.json()
+    return  res.ok ? await res.json() : []
   }
 
 const ExpenseLists = async() => {

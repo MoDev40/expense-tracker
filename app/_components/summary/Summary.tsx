@@ -8,7 +8,7 @@ import { getServerSession } from 'next-auth'
 const summaryData : () => Promise<SummaryResponseInterface> = async()=>{
   const session = await getServerSession()
   const res = await fetch(`http://localhost:3000/api/expenses/user-expenses/summary/${session?.user.email}`)
-  return  await res.json()
+  return  res.ok ? await res.json() : {}
 }
 
 const Summary = async() => {
