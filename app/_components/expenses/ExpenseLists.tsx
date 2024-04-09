@@ -9,7 +9,7 @@ interface ResponseType {
 
 const expenseData : () => Promise<ResponseType> = async()=>{
     const session = await getServerSession()
-    const res = await fetch(`http://localhost:3000/api/expenses/user-expenses/${session?.user.email}`)
+    const res = await fetch(`https://expense-tracker-gray-seven.vercel.app/api/expenses/user-expenses/${session?.user.email}`)
     return  res.ok ? await res.json() : []
   }
 

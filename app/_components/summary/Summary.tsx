@@ -7,7 +7,10 @@ import { getServerSession } from 'next-auth'
 
 const summaryData : () => Promise<SummaryResponseInterface> = async()=>{
   const session = await getServerSession()
-  const res = await fetch(`http://localhost:3000/api/expenses/user-expenses/summary/${session?.user.email}`)
+  if(!session){
+    return {}
+  }
+  const res = await fetch(`https://expense-tracker-gray-seven.vercel.app/api/expenses/user-expenses/summary/${session?.user.email}`)
   return  res.ok ? await res.json() : {}
 }
 

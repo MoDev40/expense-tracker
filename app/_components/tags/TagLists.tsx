@@ -7,7 +7,10 @@ interface ResponseType {
 
 const tagsData : () => Promise<ResponseType> = async()=>{
   const session = await getServerSession()
-  const res = await fetch(`http://localhost:3000/api/tags/get-user-tags/${session?.user.email}`,{cache:"no-cache"})
+  if(!session){
+    return []
+  }
+  const res = await fetch(`https://expense-tracker-gray-seven.vercel.app/api/tags/get-user-tags/${session?.user.email}`,{cache:"no-cache"})
   return  res.ok ? await res.json() : []
 }
 
@@ -15,10 +18,10 @@ const TagLists = async() => {
   const {tags} = await tagsData()
   return (
     <div className='flex flex-col'>
-        { tags ? 
+        { tags&& 
           tags.map((tag)=>(
               <TagList key={tag._id} tag={tag} />
-          )) : <h1>No data</h1>
+          ))
         }
     </div>
   )
