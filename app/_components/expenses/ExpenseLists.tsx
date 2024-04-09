@@ -7,16 +7,19 @@ interface ResponseType {
 }
 
 
-
-const ExpenseLists = async() => {
+const expenseData : () => Promise<ResponseType> = async()=>{
     const session = await getServerSession()
     const res = await fetch(`http://localhost:3000/api/expenses/user-expenses/${session?.user.email}`)
-    const data : ResponseType = await res.json()
+    return  await res.json()
+  }
+
+const ExpenseLists = async() => {
+    const {expenses} = await expenseData()
   return (
     <div className='space-y-5'>
         {
-            data?.expenses&&
-            data.expenses.map(expense =>(
+            expenses&&
+            expenses.map(expense =>(
                 <Expense key={expense._id} expense={expense}/>
             ))
         }
