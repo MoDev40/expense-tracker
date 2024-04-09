@@ -12,6 +12,9 @@ const Expense = ({expense}:{expense:InterfaceExpense}) => {
             <Label className='text-xl'>{expense.tag.tag}</Label>
         </div>
         <div>
+            <Label>{new Date(expense.createdAt).toLocaleDateString()}</Label>
+        </div>
+        <div>
             <Label>${expense.amount}</Label>
         </div>
         <div className='flex flex-row items-center space-x-4'>

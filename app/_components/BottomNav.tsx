@@ -11,7 +11,7 @@ const BottomNav = () => {
 	const pathName = usePathname()
   return (
 	user &&
-    <div className="fixed p-5 flex flex-row justify-between   pt-5  bottom-0 left-0 right-0 z-10 container mx-auto lg:max-w-[1120px] w-full sm:max-w-lg pb-5 border-t">
+    <div className="fixed p-5 flex bg-white flex-row justify-between   pt-5  bottom-0 left-0 right-0 z-10 container mx-auto lg:max-w-[1120px] w-full sm:max-w-lg pb-5 border-t">
 			<Link href="/summary">
 				<div className="flex justify-center items-center flex-col group cursor-pointer">
 					<div

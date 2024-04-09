@@ -8,7 +8,7 @@ interface ResponseType {
 
 const TagLists = async() => {
   const session = await getServerSession()
-  const res = await fetch(`https://daily-expenses-nine.vercel.app/api/tags/get-user-tags/${session?.user.email}`,{cache:"no-cache"})
+  const res = await fetch(`http://localhost:3000/api/tags/get-user-tags/${session?.user.email}`,{cache:"no-cache"})
   const data : ResponseType = await res.json()
   return (
     <div className='flex flex-col'>

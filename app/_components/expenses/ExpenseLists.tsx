@@ -10,10 +10,10 @@ interface ResponseType {
 
 const ExpenseLists = async() => {
     const session = await getServerSession()
-    const res = await fetch(`https://daily-expenses-nine.vercel.app/api/expenses/user-expenses/${session?.user.email}`)
+    const res = await fetch(`http://localhost:3000/api/expenses/user-expenses/${session?.user.email}`)
     const data : ResponseType = await res.json()
   return (
-    <div className='space-y-5 h-screen'>
+    <div className='space-y-5'>
         {
             data?.expenses&&
             data.expenses.map(expense =>(

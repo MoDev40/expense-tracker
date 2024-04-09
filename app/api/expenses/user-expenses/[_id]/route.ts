@@ -13,8 +13,19 @@ export async function GET(req: NextRequest, { params }: { params: Params }) {
     if(!user){
       return NextResponse.json({message:"unAuthorized User"},{status:200})
     }
-
-    const expenses = await ExpenseModel.find({ user: user._id })
+    const currentDate = new Date();
+    const startDate = new Date(currentDate.getFullYear(), currentDate.getMonth(), 1)
+    const endDate = new Date(currentDate.getFullYear(), currentDate.getMonth()+1, 0)
+    
+    const expenses = await ExpenseModel.find({
+      $and:[
+        {user: user?._id},
+        {createdAt:{
+          $gte:startDate,
+          $lte:endDate
+        }}
+      ]
+    })
       .populate('tag', 'name tag')
       .sort({ createdAt: -1 });
 

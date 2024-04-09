@@ -7,7 +7,7 @@ import { getServerSession } from 'next-auth'
 
 const Summary = async() => {
   const session = await getServerSession()
-  const res = await fetch(`https://daily-expenses-nine.vercel.app/api/expenses/user-expenses/summary/${session?.user.email}`)
+  const res = await fetch(`http://localhost:3000/api/expenses/user-expenses/summary/${session?.user.email}`)
   const data : SummaryResponseInterface= await res.json()
   return (
     <div className='flex flex-col space-y-5'>
