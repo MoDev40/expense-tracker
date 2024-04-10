@@ -12,6 +12,12 @@ export interface ExpenseBody {
     tag_id: string;
 }
 
+export interface TagBody{
+    user_id:string;
+    name:string;
+    tag:string;
+}
+
 export interface SummaryResponseInterface {
     highestExpense:InterfaceExpense;
     lowestExpense:InterfaceExpense;

@@ -18,8 +18,9 @@ import { Loader, PlusCircle } from "lucide-react"
 import { Input } from "@/components/ui/input"
 import { cn } from "@/lib/utils"
 import { useUser } from "@/app/context/UserContext"
-import { createTag } from "@/app/actions/tag.action"
-import { toast, useToast } from "@/components/ui/use-toast"
+import { toast } from "@/components/ui/use-toast"
+import { TagBody } from "@/types/types"
+import { useRouter } from "next/navigation"
 
 const tagSchema = z.object({
     name:z.string().min(2),
@@ -31,11 +32,15 @@ type TagInputs = z.infer<typeof tagSchema>
 const CreateTag = () => {
     const {user} = useUser()
     const [isAdding,setIsAdding] = useState<boolean>(false)
+    const router = useRouter()
     const form = useForm<TagInputs>()
     const onSubmit : SubmitHandler<TagInputs> = async(data) => {
         setIsAdding(true)
-        const tag = {name: data.name, tag: data.tag,id:user?.id!}
-        await createTag(tag).then(()=>{
+        const tag : TagBody = {name: data.name, tag: data.tag,user_id:user?.id!}
+        await fetch('/api/tags/create',{
+            method:"POST",
+            body:JSON.stringify(tag)
+        }).then(()=>{
             toast({
                 title: "Created Tag",
                 description: "Tag has been created successfully",
@@ -50,6 +55,7 @@ const CreateTag = () => {
             })
         }).finally(()=>{
             setIsAdding(false)
+            router.refresh()
         })
     }
   return (

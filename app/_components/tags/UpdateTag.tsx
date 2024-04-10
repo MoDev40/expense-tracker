@@ -14,12 +14,12 @@ import React, { useState } from 'react'
 import { SubmitHandler, useForm } from 'react-hook-form'
 import {z} from "zod"
 import { FileEdit, Loader } from 'lucide-react'
-import { TagInterface } from '@/types/types'
+import { TagBody, TagInterface } from '@/types/types'
 import { Input } from "@/components/ui/input"
 import { cn } from "@/lib/utils"
 import { useUser } from "@/app/context/UserContext"
-import { UpdateMyTag } from "@/app/actions/tag.action"
 import { toast } from "@/components/ui/use-toast"
+import { useRouter } from "next/navigation"
 
 const tagSchema = z.object({
     name:z.string().min(2),
@@ -32,12 +32,16 @@ const UpdateTag = ({tag}:{tag:TagInterface}) => {
 
     const {user} = useUser()
     const [isUpdating,setIsUpdating] = useState<boolean>(false)
+    const router = useRouter()
 
     const form = useForm<TagInputs>()
     const onSubmit : SubmitHandler<TagInputs> = async(data) => {
         setIsUpdating(true)
-        const updatedTag = {name: data.name, tag: data.tag,user_id:user?.id!,id:tag._id!}
-        await UpdateMyTag(updatedTag).then(()=>{
+        const updatedTag : TagBody = {name: data.name, tag: data.tag,user_id:user?.id!}
+        await fetch(`/api/tags/update/${tag._id}`,{
+            method:"PUT",
+            body:JSON.stringify(updatedTag)
+        }).then(()=>{
             toast({
                 title: "Updated Tag",
                 description: "Tag has been Updated successfully",
@@ -52,6 +56,7 @@ const UpdateTag = ({tag}:{tag:TagInterface}) => {
             })
         }).finally(()=>{
             setIsUpdating(false)
+            router.refresh()
         })
     }
   return (

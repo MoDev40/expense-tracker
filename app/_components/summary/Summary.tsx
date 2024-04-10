@@ -5,17 +5,18 @@ import { Label } from '@/components/ui/label'
 import { getServerSession } from 'next-auth'
 
 
-const summaryData : () => Promise<SummaryResponseInterface> = async()=>{
-  const session = await getServerSession()
-  if(!session){
-    return {}
+const summaryData : (email:string) => Promise<SummaryResponseInterface> = async(email)=>{
+  try {
+    const res = await fetch(`https://expense-tracker-gray-seven.vercel.app/api/expenses/summary/${email}`,{cache:"no-cache"})
+    return  res.ok ? await res.json() : {}
+  } catch (error) {
+    console.log(error);
   }
-  const res = await fetch(`https://expense-tracker-gray-seven.vercel.app/api/expenses/user-expenses/summary/${session?.user.email}`)
-  return  res.ok ? await res.json() : {}
 }
 
 const Summary = async() => {
-  const {sumMonthExpenses,highestExpense,lowestExpense,expenses} = await summaryData()
+  const session = await getServerSession()
+  const {sumMonthExpenses,highestExpense,lowestExpense,expenses} = await summaryData(session?.user.email!)
   return (
     <div className='flex flex-col space-y-5'>
         <div className='w-full space-y-3'>

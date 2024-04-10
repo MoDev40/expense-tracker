@@ -1,14 +1,15 @@
 'use client'
-import { deleteTag } from '@/app/actions/tag.action'
 import { toast } from '@/components/ui/use-toast'
 import { Loader, Trash2 } from 'lucide-react'
+import { useRouter } from 'next/navigation'
 import React, { useState } from 'react'
 
 const DeleteTag = ({_id}:{_id:string}) => {
   const [isDeleting,setIsDeleting] = useState<boolean>(false)
+  const router = useRouter()
   async function handleDelete (){
         setIsDeleting(true)
-        await deleteTag(_id).then(()=>{
+        await fetch(`/api/tags/delete/${_id}`,{method:"DELETE"}).then(()=>{
           toast({
             title: "Deleted Tag",
             description: "Tag has been deleted successfully",
@@ -20,8 +21,10 @@ const DeleteTag = ({_id}:{_id:string}) => {
             description: error.message || "Unexpected error occurred",
             variant:"destructive"
           })
+        }).finally(()=>{
+          setIsDeleting(false)
+          router.refresh()
         })
-        setIsDeleting(false)
     }
   return (
     isDeleting ? <Loader className='animate-spin' size={20} />

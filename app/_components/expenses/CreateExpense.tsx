@@ -1,5 +1,4 @@
 'use client'
-import { createExpense } from "@/app/actions/expense.action"
 import { Button } from "@/components/ui/button"
 import {
   Dialog,
@@ -21,6 +20,7 @@ import {z} from "zod"
 import useSWR, {Fetcher} from "swr"
 import { useUser } from "@/app/context/UserContext"
 import { toast } from "@/components/ui/use-toast"
+import { useRouter } from "next/navigation"
 
 const newExpenseSchema = z.object({
     price:z.string(),
@@ -35,13 +35,17 @@ const fetcher: Fetcher<any,string> = (url): Promise<ResponseType> => fetch(url,{
 
 const CreateExpense = () => {
     const [isCreating,setIsCreating] = useState<boolean>(false);
+    const router = useRouter()
     const {user} =  useUser()
     const {data,isLoading} = useSWR<ResponseType>(`/api/tags/get-both-tags/${user?.id}`,fetcher)
     const form = useForm<Inputs>();
     const onSubmit : SubmitHandler<Inputs> = async(data)=>{
         setIsCreating(true)
         const expBody : ExpenseBody = {user:user?.id!,amount:Number(data.price),tag_id:data.tag}
-        await createExpense(expBody).then(()=>{
+        await fetch("/api/expenses/create",{
+            method:"POST",
+            body:JSON.stringify(expBody),
+        }).then(()=>{
             toast({
                 title: "Created Expense",
                 description: "Expense has been created successfully",
@@ -56,6 +60,7 @@ const CreateExpense = () => {
             })
         }).finally(()=>{
             setIsCreating(false)
+            router.refresh()
         })
     }
   return (

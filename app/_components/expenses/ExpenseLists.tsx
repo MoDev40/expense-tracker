@@ -7,14 +7,18 @@ interface ResponseType {
 }
 
 
-const expenseData : () => Promise<ResponseType> = async()=>{
-    const session = await getServerSession()
-    const res = await fetch(`https://expense-tracker-gray-seven.vercel.app/api/expenses/user-expenses/${session?.user.email}`)
+const expenseData : (email:string) => Promise<ResponseType> = async(email)=>{
+  try {
+    const res = await fetch(`https://expense-tracker-gray-seven.vercel.app/api/expenses/${email}`,{cache:"no-cache"})
     return  res.ok ? await res.json() : []
+  } catch (error) {
+    console.log(error);
   }
+}
 
 const ExpenseLists = async() => {
-    const {expenses} = await expenseData()
+    const session = await getServerSession()
+    const {expenses} = await expenseData(session?.user.email!)
   return (
     <div className='space-y-5'>
         {

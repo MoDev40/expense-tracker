@@ -1,5 +1,4 @@
 "use client"
-import { deleteMyExpense } from '@/app/actions/expense.action'
 import { toast } from '@/components/ui/use-toast'
 import { Loader, Trash2 } from 'lucide-react'
 import { useRouter } from 'next/navigation'
@@ -10,7 +9,7 @@ const DeleteExpense = ({id}:{id:string}) => {
     const router = useRouter()
     const handleDelete = async()=>{
       setIsDeleting(true)
-      await deleteMyExpense(id).then(()=>{
+      await fetch(`/api/expenses/delete/${id}`,{method:"DELETE"}).then(()=>{
         toast({
           title: "Deleted Expense",
           description: "Expense has been deleted successfully",
@@ -24,6 +23,7 @@ const DeleteExpense = ({id}:{id:string}) => {
         })
       }).finally(()=>{
         setIsDeleting(false)
+        router.refresh()
       })
     }
   return (
