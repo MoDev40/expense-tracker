@@ -1,7 +1,7 @@
 import GoogleProvider from "next-auth/providers/google";
 import { NextAuthOptions } from "next-auth";
 import  connectDB  from "./connectDB";
-import UserModel from "../models/UserModel";
+import UserModel from "@/lib/models/UserModel";
 import { cookies } from "next/headers";
 
 const GOOGLE_CLIENT_ID = process.env.AUTH_GOOGLE_CLIENT_ID!

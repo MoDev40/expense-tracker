@@ -1,6 +1,6 @@
 import connectDB from '@/app/config/connectDB';
-import ExpenseModel from '@/app/models/ExpenseModel';
-import UserModel from '@/app/models/UserModel';
+import ExpenseModel from '@/lib/models/ExpenseModel';
+import UserModel from '@/lib/models/UserModel';
 import { NextRequest, NextResponse } from 'next/server';
 
 type Params = {

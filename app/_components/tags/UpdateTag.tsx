@@ -12,21 +12,16 @@ import {
 import { Form,FormField, FormItem } from "@/components/ui/form"
 import React, { useState } from 'react'
 import { SubmitHandler, useForm } from 'react-hook-form'
-import {z} from "zod"
 import { FileEdit, Loader } from 'lucide-react'
-import { TagBody, TagInterface } from '@/types/types'
+import { TagBody, TagInputs, TagInterface, tagSchema } from '@/types/types'
 import { Input } from "@/components/ui/input"
 import { cn } from "@/lib/utils"
 import { useUser } from "@/app/context/UserContext"
 import { toast } from "@/components/ui/use-toast"
 import { useRouter } from "next/navigation"
+import {zodResolver} from "@hookform/resolvers/zod"
 
-const tagSchema = z.object({
-    name:z.string().min(2),
-    tag:z.string()
-})
 
-type TagInputs = z.infer<typeof tagSchema> 
 
 const UpdateTag = ({tag}:{tag:TagInterface}) => {
 
@@ -34,7 +29,7 @@ const UpdateTag = ({tag}:{tag:TagInterface}) => {
     const [isUpdating,setIsUpdating] = useState<boolean>(false)
     const router = useRouter()
 
-    const form = useForm<TagInputs>()
+    const form = useForm<TagInputs>({resolver:zodResolver(tagSchema)})
     const onSubmit : SubmitHandler<TagInputs> = async(data) => {
         setIsUpdating(true)
         const updatedTag : TagBody = {name: data.name, tag: data.tag,user_id:user?.id!}
@@ -47,7 +42,6 @@ const UpdateTag = ({tag}:{tag:TagInterface}) => {
                 description: "Tag has been Updated successfully",
                 duration: 3000,
             })
-            form.reset()
         }).catch((error:any)=>{
             toast({
                 title: "Updated Tag",
@@ -56,6 +50,7 @@ const UpdateTag = ({tag}:{tag:TagInterface}) => {
             })
         }).finally(()=>{
             setIsUpdating(false)
+            form.reset()
             router.refresh()
         })
     }

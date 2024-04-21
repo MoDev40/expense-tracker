@@ -10,7 +10,7 @@ const MinMaxExpense = ({label,data}:{label:string,data:InterfaceExpense}) => {
             <Label className='text-xl font-semibold'>{data?.tag?.tag}</Label>
         </div>
         <div className='flex flex-col'>
-            <Label className='hidden md:block'>{label}</Label>
+            <Label>{label}</Label>
         </div>
         <div>
             <Label>${data?.amount}</Label>

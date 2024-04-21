@@ -1,6 +1,6 @@
 import connectDB from "@/app/config/connectDB";
-import TagModel from "@/app/models/TagModel";
-import UserModel from "@/app/models/UserModel";
+import TagModel from "@/lib/models/TagModel";
+import UserModel from "@/lib/models/UserModel";
 import {NextRequest,NextResponse} from "next/server"
 
 type Params = {

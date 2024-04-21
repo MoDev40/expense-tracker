@@ -1,7 +1,7 @@
 import { NextRequest,NextResponse } from "next/server";
 import connectDB from "@/app/config/connectDB";
-import TagModel from "@/app/models/TagModel";
-import ExpenseModel from "@/app/models/ExpenseModel";
+import TagModel from "@/lib/models/TagModel";
+import ExpenseModel from "@/lib/models/ExpenseModel";
 
 type Params = {
     _id: string;

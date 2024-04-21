@@ -9,10 +9,10 @@ const DeleteTag = ({_id}:{_id:string}) => {
   const router = useRouter()
   async function handleDelete (){
         setIsDeleting(true)
-        await fetch(`/api/tags/delete/${_id}`,{method:"DELETE"}).then(()=>{
+        await fetch(`/api/tags/delete/${_id}`,{method:"DELETE"}).then((res)=>{
           toast({
             title: "Deleted Tag",
-            description: "Tag has been deleted successfully",
+            description: res.ok ? "Tag has been deleted successfully" : "Maybe registered expense",
             duration: 3000,
         })
         }).catch((error:any)=>{

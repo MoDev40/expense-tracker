@@ -8,26 +8,22 @@ import {
   DialogTitle,
   DialogTrigger,
 } from "@/components/ui/dialog"
-import { Form, FormControl, FormField, FormItem } from "@/components/ui/form"
+import { Form, FormControl, FormField, FormItem, FormMessage } from "@/components/ui/form"
 import { Input } from "@/components/ui/input"
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
 import { cn } from "@/lib/utils"
-import { ExpenseBody, TagInterface } from "@/types/types"
+import { ExpInputs, ExpenseBody, TagInterface, expenseSchema } from "@/types/types"
 import { Loader, Plus } from "lucide-react"
 import { useState } from "react"
 import { SubmitHandler, useForm } from "react-hook-form"
-import {z} from "zod"
 import useSWR, {Fetcher} from "swr"
 import { useUser } from "@/app/context/UserContext"
 import { toast } from "@/components/ui/use-toast"
 import { useRouter } from "next/navigation"
+import { zodResolver } from "@hookform/resolvers/zod"
 
-const newExpenseSchema = z.object({
-    price:z.string(),
-    tag:z.string()
-})
 
-type Inputs = z.infer<typeof newExpenseSchema>
+
 interface ResponseType {
     tags:TagInterface[]
 }
@@ -38,8 +34,8 @@ const CreateExpense = () => {
     const router = useRouter()
     const {user} =  useUser()
     const {data,isLoading} = useSWR<ResponseType>(`/api/tags/get-both-tags/${user?.id}`,fetcher)
-    const form = useForm<Inputs>();
-    const onSubmit : SubmitHandler<Inputs> = async(data)=>{
+    const form = useForm<ExpInputs>({resolver:zodResolver(expenseSchema)});
+    const onSubmit : SubmitHandler<ExpInputs> = async(data)=>{
         setIsCreating(true)
         const expBody : ExpenseBody = {user:user?.id!,amount:Number(data.price),tag_id:data.tag}
         await fetch("/api/expenses/create",{
@@ -51,7 +47,6 @@ const CreateExpense = () => {
                 description: "Expense has been created successfully",
                 duration: 3000,
             })
-            form.reset()
         }).catch(()=>{
             toast({
                 title: "Created Expense",
@@ -59,6 +54,7 @@ const CreateExpense = () => {
                 variant:"destructive"
             })
         }).finally(()=>{
+            form.reset()
             setIsCreating(false)
             router.refresh()
         })
@@ -101,6 +97,7 @@ const CreateExpense = () => {
                         }
                         </SelectContent>
                         </Select>
+                        <FormMessage/>
                     </FormItem>
                 )}
                 />
@@ -110,7 +107,8 @@ const CreateExpense = () => {
                 defaultValue=""
                 render={({field})=>(
                     <FormItem  className={cn("w-full")} >
-                        <Input required type="text" placeholder="0.00" {...field}/>
+                        <Input type="number" placeholder="0.00" {...field}/>
+                        <FormMessage/>
                     </FormItem>
                 )}
                 />

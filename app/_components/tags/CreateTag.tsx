@@ -9,31 +9,26 @@ import {
   DialogTrigger,
 } from "@/components/ui/dialog"
 
-import { Form,FormField, FormItem } from "@/components/ui/form"
+import { Form,FormField, FormItem, FormMessage } from "@/components/ui/form"
 
 import React, { useState } from 'react'
 import { SubmitHandler, useForm } from 'react-hook-form'
-import {z} from "zod"
 import { Loader, PlusCircle } from "lucide-react"
 import { Input } from "@/components/ui/input"
 import { cn } from "@/lib/utils"
 import { useUser } from "@/app/context/UserContext"
 import { toast } from "@/components/ui/use-toast"
-import { TagBody } from "@/types/types"
+import { TagBody, TagInputs, tagSchema } from "@/types/types"
 import { useRouter } from "next/navigation"
+import { zodResolver } from "@hookform/resolvers/zod"
 
-const tagSchema = z.object({
-    name:z.string().min(2),
-    tag:z.string()
-})
 
-type TagInputs = z.infer<typeof tagSchema> 
 
 const CreateTag = () => {
     const {user} = useUser()
     const [isAdding,setIsAdding] = useState<boolean>(false)
     const router = useRouter()
-    const form = useForm<TagInputs>()
+    const form = useForm<TagInputs>({resolver:zodResolver(tagSchema)})
     const onSubmit : SubmitHandler<TagInputs> = async(data) => {
         setIsAdding(true)
         const tag : TagBody = {name: data.name, tag: data.tag,user_id:user?.id!}
@@ -76,7 +71,8 @@ const CreateTag = () => {
                     name="name"
                     render={({field})=>(
                         <FormItem  className={cn("w-full")} >
-                            <Input required type="text" placeholder="rent" {...field}/>
+                            <Input type="text" placeholder="name eg. rent" {...field}/>
+                            <FormMessage/>
                         </FormItem>
                     )}
                     />
@@ -86,7 +82,8 @@ const CreateTag = () => {
                     defaultValue=""
                     render={({field})=>(
                         <FormItem  className={cn("w-full")} >
-                            <Input required type="text" placeholder="sticker or tag 🏡" {...field}/>
+                            <Input type="text" placeholder="tag eg. 🏡" {...field}/>
+                            <FormMessage/>
                         </FormItem>
                     )}
                     />

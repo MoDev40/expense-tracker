@@ -1,7 +1,7 @@
 import { NextRequest,NextResponse } from "next/server";
 import connectDB from "@/app/config/connectDB";
 import { TagBody } from "@/types/types";
-import TagModel from "@/app/models/TagModel";
+import TagModel from "@/lib/models/TagModel";
 
 export async function POST(req: NextRequest){
     try {
@@ -16,9 +16,10 @@ export async function POST(req: NextRequest){
         }
 
         const isTagExists = await TagModel.find({
-            $or:[
+            $and:[
                 {name},
-                {tag}
+                {tag},
+                {user:user_id},
             ]
         })
 

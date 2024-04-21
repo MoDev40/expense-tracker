@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from "next/server";
-import TagModel from "@/app/models/TagModel";
+import TagModel from "@/lib/models/TagModel";
 import { TagInterface } from "@/types/types";
 import connectDB from "@/app/config/connectDB";
 

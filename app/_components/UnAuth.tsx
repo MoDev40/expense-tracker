@@ -1,10 +1,7 @@
-import { Loader } from 'lucide-react';
-import { signIn } from 'next-auth/react';
 import Image from 'next/image';
-import React, { useState } from 'react'
+import Link from 'next/link';
 
 const UnAuth = () => {
-    const [isLogin,setIsLogin] = useState<boolean>(false);
     return (
 		<div className="w-full flex flex-col gap-10 h-screen pt-10 p-5 overflow-hidden">
 			<div className="flex flex-col gap-10">
@@ -29,22 +26,15 @@ const UnAuth = () => {
 						you better understand your spending habits.
 					</p>
 				</div>
-				<button
+				<Link href='/api/auth/signin'
 					className="mx-auto w-full hover:ring-2 ring-1 py-2 rounded-sm ring-zinc-600 flex items-center gap-3 px-4 group"
-					onClick={() => {
-                        setIsLogin(true)
-                        signIn("google").finally(() => {
-                            setIsLogin(false)
-                        })
-					}}
 				> 
                 {
-                    isLogin ? <Loader className=' animate-spin'/> :
 					<span className="flex-1 group-hover:tracking-wider transition-all">
 						Login to continue
 					</span>
                 }
-				</button>
+				</Link>
 			</div>
 			<div className="flex justify-center items-center">
 				<Image

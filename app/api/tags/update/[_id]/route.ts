@@ -1,7 +1,7 @@
 import { NextRequest,NextResponse } from "next/server";
 import connectDB from "@/app/config/connectDB";
 import { TagBody } from "@/types/types";
-import TagModel from "@/app/models/TagModel";
+import TagModel from "@/lib/models/TagModel";
 
 
 type Params = {
@@ -11,12 +11,13 @@ export async function PUT(req: NextRequest, { params }: { params:Params }){
     try {
         connectDB()
 
-        const {tag,name} : TagBody = await req.json();
+        const {tag,name,user_id} : TagBody = await req.json();
 
         const isTagExists = await TagModel.find({
             $and:[
                 {name},
-                {tag}
+                {tag},
+                {user:user_id}
             ]
         })
 

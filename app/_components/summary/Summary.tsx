@@ -24,8 +24,8 @@ const Summary = async() => {
             <h1 className='font-black text-2xl text-red-400'>-${sumMonthExpenses}</h1>
         </div>
         <BarChar expenses={expenses!}/>
-        <MinMaxExpense label='Highest expense payed this month' data={highestExpense!}/>
-        <MinMaxExpense label='Lowest expense payed this month' data={lowestExpense!}/>
+        <MinMaxExpense label='Max' data={highestExpense!}/>
+        <MinMaxExpense label='Min' data={lowestExpense!}/>
     </div> 
   )
 }

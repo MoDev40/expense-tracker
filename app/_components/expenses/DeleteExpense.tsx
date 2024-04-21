@@ -9,10 +9,10 @@ const DeleteExpense = ({id}:{id:string}) => {
     const router = useRouter()
     const handleDelete = async()=>{
       setIsDeleting(true)
-      await fetch(`/api/expenses/delete/${id}`,{method:"DELETE"}).then(()=>{
+      await fetch(`/api/expenses/delete/${id}`,{method:"DELETE"}).then((res)=>{
         toast({
           title: "Deleted Expense",
-          description: "Expense has been deleted successfully",
+          description: res.ok ? "Expense has been deleted successfully" :"Unexpected error occurred",
           duration: 3000,
       })
       }).catch(()=>{

@@ -20,7 +20,7 @@ const ExpenseLists = async() => {
     const session = await getServerSession()
     const {expenses} = await expenseData(session?.user.email!)
   return (
-    <div className='space-y-5'>
+    <div className='space-y-5 overflow-y-auto'>
         {
             expenses&&
             expenses.map(expense =>(

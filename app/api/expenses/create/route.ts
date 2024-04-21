@@ -1,5 +1,5 @@
 import connectDB from "@/app/config/connectDB";
-import ExpenseModel from "@/app/models/ExpenseModel";
+import ExpenseModel from "@/lib/models/ExpenseModel";
 import { ExpenseBody } from "@/types/types";
 import { NextRequest,NextResponse } from "next/server";
 
