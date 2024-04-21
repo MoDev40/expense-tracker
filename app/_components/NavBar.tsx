@@ -4,10 +4,9 @@ import { signIn, signOut } from 'next-auth/react'
 import Link from 'next/link'
 import { useRouter } from 'next/navigation'
 import React, { useState } from 'react'
-import { useUser } from '../context/UserContext'
 import Cookies from "js-cookie"
 function NavBar() {
-  const {user} = useUser()
+  const token = Cookies.get('token')
   const [isLoad,setIsLoad] = useState<boolean>(false)
   const router = useRouter()
   
@@ -24,7 +23,7 @@ function NavBar() {
     </h1>
     {
 
-     user ?
+     token ?
       <LogOut size={20}
           className="h-5 w-5 hover:scale-110 transition-all"
           onClick={async () => {
