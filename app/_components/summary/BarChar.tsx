@@ -24,7 +24,7 @@ ChartJS.register(
 const BarChar = ({expenses}:{expenses:InterfaceExpense[]}) => {
     const groupedExpenses: { [key: string]: number } = {}
     expenses?.forEach((expense) => {
-      const date = new Date(expense.createdAt).toLocaleString().split("/")[1];
+      const date = new Date(expense.createdAt).toLocaleDateString();
       if (groupedExpenses[date]) {
         groupedExpenses[date] += expense.amount;
       } else {
